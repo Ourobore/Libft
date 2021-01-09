@@ -14,19 +14,19 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	unsigned long int i;
-	unsigned long int j;
+	unsigned long int	i;
+	unsigned long int	j;
 
 	i = 0;
 	j = 0;
 	if (needle[i] == 0)
-		return ((char*)haystack);
+		return ((char *)haystack);
 	while (haystack[i] && needle[j])
 	{
 		while (haystack[i] == needle[j] && i < len)
 		{
 			if (needle[j + 1] == 0)
-				return ((char*)&haystack[i - j]);
+				return ((char *)&haystack[i - j]);
 			i++;
 			j++;
 		}

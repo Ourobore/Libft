@@ -14,7 +14,7 @@
 
 static int	in_set(char c, char const *set)
 {
-	unsigned long int i;
+	unsigned long int	i;
 
 	i = 0;
 	while (set[i])
@@ -25,7 +25,8 @@ static int	in_set(char c, char const *set)
 
 static char	*set_zero(char *trim)
 {
-	if (!(trim = malloc(1 * sizeof(char))))
+	trim = malloc(1 * sizeof(char));
+	if (!trim)
 		return (NULL);
 	trim[0] = 0;
 	return (trim);
@@ -54,7 +55,7 @@ static int	get_len(char const *s1, char const *set)
 	return (len);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	i;
 	size_t	j;
@@ -71,7 +72,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 	taille = ft_strlen(s1) - len;
 	if (len == ft_strlen(s1) || s1[0] == 0)
 		return (set_zero(trim));
-	if (!(trim = malloc((taille + 1) * sizeof(char))))
+	trim = malloc((taille + 1) * sizeof(char));
+	if (!trim)
 		return (NULL);
 	while (in_set(s1[j], set))
 		j++;

@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 07:52:54 by lchapren          #+#    #+#             */
-/*   Updated: 2020/01/06 10:29:11 by lchapren         ###   ########.fr       */
+/*   Updated: 2019/11/12 08:53:45 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ static char	*ft_strndup(const char *s, size_t len)
 
 	i = 0;
 	tmp = (char*)s;
-	taille = (len < ft_strlen(s) ? len : ft_strlen(s));
-	if (!(retour = ft_calloc(taille + 1, sizeof(char))))
+	if (len < ft_strlen(s))
+		taille = len;
+	else
+		taille = ft_strlen(s);
+	retour = ft_calloc(taille + 1, sizeof(char));
+	if (!retour)
 		return (NULL);
 	while (i < taille)
 	{
@@ -66,14 +70,15 @@ static char	*get_word(char **str, char c)
 	start = *str;
 	while (**str && **str != c)
 		*str = *str + 1;
-	if (!(retour = ft_strndup(start, (size_t)(*str - start))))
+	retour = ft_strndup(start, (size_t)(*str - start));
+	if (!retour)
 		return (NULL);
 	return (retour);
 }
 
 static void	free_tab(char **tab)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (tab[i])
@@ -84,7 +89,7 @@ static void	free_tab(char **tab)
 	free(tab);
 }
 
-char		**ft_split(const char *s, char c)
+char	**ft_split(const char *s, char c)
 {
 	char	**split;
 	char	*tmp;
@@ -95,13 +100,15 @@ char		**ft_split(const char *s, char c)
 	nb_word = 0;
 	if (!s)
 		return (NULL);
-	tmp = (char*)s;
+	tmp = (char *)s;
 	nb_word = nb_chaines(s, c);
-	if (!(split = ft_calloc(nb_word + 1, sizeof(char*))))
+	split = ft_calloc(nb_word + 1, sizeof(char*));
+	if (!split)
 		return (NULL);
 	while (i < nb_word)
 	{
-		if (!(split[i] = get_word(&tmp, c)))
+		split[i] = get_word(&tmp, c);
+		if (!split[i])
 		{
 			free_tab(split);
 			return (NULL);
@@ -110,4 +117,3 @@ char		**ft_split(const char *s, char c)
 	}
 	return (split);
 }
-

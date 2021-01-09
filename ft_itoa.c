@@ -34,18 +34,18 @@ static int	nb_char(int n)
 	return (count);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char		*s;
 	long int	nb;
 	int			i;
 	int			len;
 
-	s = NULL;
 	i = 0;
 	len = nb_char(n);
 	nb = n;
-	if (!(s = malloc((sizeof(char) * len) + 1)))
+	s = malloc((sizeof(char) * len) + 1);
+	if (!s)
 		return (s);
 	if (nb == 0)
 		s[0] = '0';
